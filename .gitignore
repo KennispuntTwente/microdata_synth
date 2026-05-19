@@ -1,0 +1,35 @@
+# Generated synthetic data
+output/
+*.csv
+*.rds
+
+# R environment
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+renv/library/
+renv/local/
+
+# RStudio
+.Rproj.user/
+*.Rproj
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# Python (if running catalogus scripts)
+__pycache__/
+*.pyc
+.venv/
+.env
