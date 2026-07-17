@@ -139,6 +139,12 @@
       "Maintainer": "Kirill Müller <kirill@cynkra.com>",
       "Repository": "CRAN"
     },
+    "arrow": {
+      "Package": "arrow",
+      "Version": "25.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    },
     "bit": {
       "Package": "bit",
       "Version": "4.6.0",
@@ -422,6 +428,12 @@
       "Maintainer": "Gábor Csárdi <csardi.gabor@gmail.com>",
       "Repository": "CRAN"
     },
+    "data.table": {
+      "Package": "data.table",
+      "Version": "1.18.4",
+      "Source": "Repository",
+      "Repository": "CRAN"
+    },
     "dplyr": {
       "Package": "dplyr",
       "Version": "1.1.4",
@@ -483,6 +495,12 @@
       "NeedsCompilation": "yes",
       "Author": "Hadley Wickham [aut, cre] (<https://orcid.org/0000-0003-4757-117X>), Romain François [aut] (<https://orcid.org/0000-0002-2444-4226>), Lionel Henry [aut], Kirill Müller [aut] (<https://orcid.org/0000-0002-1416-3412>), Davis Vaughan [aut] (<https://orcid.org/0000-0003-4777-038X>), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
+      "Repository": "CRAN"
+    },
+    "duckdb": {
+      "Package": "duckdb",
+      "Version": "1.5.2",
+      "Source": "Repository",
       "Repository": "CRAN"
     },
     "fansi": {
@@ -712,6 +730,12 @@
       "Author": "Lionel Henry [aut, cre], Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>), Posit Software, PBC [cph, fnd]",
       "Maintainer": "Lionel Henry <lionel@posit.co>",
       "Repository": "RSPM"
+    },
+    "lubridate": {
+      "Package": "lubridate",
+      "Version": "1.9.5",
+      "Source": "Repository",
+      "Repository": "CRAN"
     },
     "magrittr": {
       "Package": "magrittr",
@@ -1303,6 +1327,12 @@
       "NeedsCompilation": "yes",
       "Author": "Lionel Henry [aut, cre], Hadley Wickham [aut], Posit Software, PBC [cph, fnd]",
       "Maintainer": "Lionel Henry <lionel@posit.co>",
+      "Repository": "CRAN"
+    },
+    "timechange": {
+      "Package": "timechange",
+      "Version": "0.4.0",
+      "Source": "Repository",
       "Repository": "CRAN"
     },
     "tzdb": {
