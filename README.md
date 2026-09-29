@@ -1,16 +1,28 @@
-# microdata_synth — Synthetic CBS Microdata Generator
+# microdata_synth — Experimental Synthetic Microdata Generator
 
-Generate realistic synthetic CBS (Statistics Netherlands) microdata from the official catalog metadata.
+Generate synthetic datasets from metadata collected from the public CBS (Statistics Netherlands) microdata catalog.
+
+> [!WARNING]
+> **Experimental prototype.** This project is a work in progress, not an official CBS product, and is not intended for production or policy decisions. Generated data are not validated as statistically representative of real microdata and have no formal privacy or disclosure-control guarantee. Review the code and outputs for your use case.
+
+## Purpose of This Experiment
+
+This experiment explores how far public catalog metadata can drive the generation of
+synthetic, structurally plausible datasets, including datasets linked by shared keys. The
+aim is to provide reproducible fixtures for developing and testing data workflows when
+real records are unavailable, while learning where metadata-driven generation falls short.
+It does not aim to reproduce real population distributions or certify that a workflow will
+work correctly on real microdata.
 
 ## Overview
 
-This project uses the [microdata_catalogus](https://github.com/KennispuntTwente/microdata_catalogus) SQLite database to:
+This project reads the local SQLite database built by the separate [microdata_catalogus](https://github.com/KennispuntTwente/microdata_catalogus) project to:
 
 - discover dataset structures and variable definitions
 - generate synthetic values that respect metadata constraints
 - produce linked datasets with referential integrity
 
-The generator now supports:
+The current prototype includes experiments for:
 
 - all 7 key types (person, business, job, household, object, address, education)
 - composite key-aware linking (for example `RINPERSOON + RINPERSOONS` sampled as a pair)
@@ -20,19 +32,36 @@ The generator now supports:
 
 ## Quick Start
 
-### 1. Install dependencies
+### 1. Build the catalog database locally
+
+The generated catalog database is not included in the `microdata_catalogus` repository. Install [uv](https://docs.astral.sh/uv/) and Python 3.12 or later,
+then clone that repository next to `microdata_synth` and build the database before running the generator:
+
+```bash
+# From the microdata_synth repository root (skip cloning if it is already there)
+git clone https://github.com/KennispuntTwente/microdata_catalogus.git ../microdata_catalogus
+cd ../microdata_catalogus
+uv sync
+uv run python scripts/catalog.py update
+cd ../microdata_synth
+```
+
+This creates `../microdata_catalogus/data/sqlite/catalogus.db` and downloads PDF documentation locally. The generator reads the catalog's `datasets`, `variables`, `join_keys`, and `datasets_fts` tables, including variable metadata stored as JSON.
+The initial update can take some time.
+
+### 2. Install dependencies
 
 ```r
 renv::restore()
 ```
 
-### 2. Load the generator
+### 3. Load the generator
 
 ```r
 source("R/main.R")
 ```
 
-### 3. Explore and generate
+### 4. Explore and generate
 
 ```r
 # Fuzzy search
@@ -58,7 +87,7 @@ check_referential_integrity(linked)
 export_datasets(linked, output_dir = "output/sociaal_vangnet", format = "csv")
 ```
 
-### 4. One-command workflow
+### 5. One-command workflow
 
 ```r
 generate_suite(
@@ -154,10 +183,12 @@ Validation and export:
   - `DBI`, `RSQLite`
   - `cli`, `glue`, `tibble`, `rlang`, `jsonlite`
 
-## Notes
+## Project Status and Limitations
 
-- This repository generates synthetic data only; it does not expose real CBS microdata.
-- Output realism depends on metadata quality in the catalogus.
+- This repository generates synthetic data only; it does not connect to or contain restricted CBS microdata.
+- Output quality depends on the catalog metadata and generation heuristics. Generated values and relationships can be unrealistic or internally inconsistent.
+- Passing validation here does not establish correctness on real data. Review generated data and code before relying on them.
+- The catalog is maintained separately; schema or metadata changes there may require updates here.
 
 ## Copilot Documentation
 

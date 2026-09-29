@@ -23,9 +23,15 @@ test_that("catalog interface functions query expected metadata", {
 
     join_keys <- get_join_keys()
     expect_true(any(join_keys$key_name == "RINPERSOON"))
+    dataset_join_keys <- get_join_keys("sEcMbUs")
+    expect_true(all(c("RINPERSOON", "RINPERSOONS") %in% dataset_join_keys$key_name))
 
-    key_overview <- get_key_type_overview()
+    key_overview <- get_key_type_overview("sEcMbUs")
     expect_true(any(key_overview$key_type == "person"))
+
+    catalog_status <- check_catalogus_status("sEcMbUs")
+    expect_equal(nrow(catalog_status), 1)
+    expect_equal(catalog_status$name, "SECMBUS")
 
     by_type <- find_datasets_by_key_type("person")
     expect_true("SECMBUS" %in% by_type$name)

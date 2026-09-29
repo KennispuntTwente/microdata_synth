@@ -208,7 +208,7 @@ get_join_keys <- function(dataset_name = NULL, include_unused = FALSE) {
   conn <- .get_catalogus_conn()
   on.exit(DBI::dbDisconnect(conn))
 
-  where_clause <- if (is.null(dataset_name)) "" else " AND d.name = ?"
+  where_clause <- if (is.null(dataset_name)) "" else " AND UPPER(d.name) = UPPER(?)"
 
   usage_query <- paste0(
     "
@@ -278,7 +278,7 @@ get_key_type_overview <- function(dataset_name = NULL) {
   conn <- .get_catalogus_conn()
   on.exit(DBI::dbDisconnect(conn))
 
-  where_clause <- if (is.null(dataset_name)) "" else " AND d.name = ?"
+  where_clause <- if (is.null(dataset_name)) "" else " AND UPPER(d.name) = UPPER(?)"
 
   query <- paste0(
     "
@@ -408,7 +408,7 @@ check_catalogus_status <- function(dataset_name = NULL) {
   "
 
   if (!is.null(dataset_name)) {
-    query <- stringr::str_replace(query, "ORDER BY", "WHERE name = ? ORDER BY")
+    query <- stringr::str_replace(query, "ORDER BY", "WHERE UPPER(name) = UPPER(?) ORDER BY")
     result <- DBI::dbGetQuery(conn, query, params = list(dataset_name))
   } else {
     result <- DBI::dbGetQuery(conn, query)
